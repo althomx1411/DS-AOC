@@ -1,4 +1,4 @@
-FROM flink:1.20-scala_2.12
+FROM flink:1.20.0-scala_2.12
 
 RUN apt-get update -y && \
     apt-get install -y python3 python3-pip python3-dev build-essential && \

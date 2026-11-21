@@ -65,6 +65,24 @@ services:
       - flink-jobmanager
     networks:
       - flink-kafka-net
+
+  flink-submit-read-post:
+    build: ./flink
+    image: pyflink-kafka:1.20
+    container_name: flink-submit-read-post
+    command: >
+      /bin/sh -c "sleep 10 && /opt/flink/bin/flink run /opt/flink/jobs/read_post.py"
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: flink-jobmanager
+    volumes:
+      - ./flink/jobs:/opt/flink/jobs
+    depends_on:
+      - flink-taskmanager
+    networks:
+      - flink-kafka-net
+    restart: unless-stopped
 networks:
   flink-kafka-net:
     driver: bridge
